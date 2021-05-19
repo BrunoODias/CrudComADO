@@ -1,0 +1,68 @@
+﻿@model List<CrudADO.Models.Person>
+@{
+    Layout = "_Layout";
+}
+
+<div class="row m-2 justify-content-end">
+    <a href="/Person/Add" class="btn btn-primary">Adicionar</a>
+</div>
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <td>
+                    Nome
+                </td>
+                <td>
+                    Sexo
+                </td>
+                <td>
+                    Data de nascimento
+                </td>
+                <td>
+                    Etnia
+                </td>
+                <td>
+                    Ações
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Person person in Model)
+            {
+                <tr>
+                    <td>
+                        @person.Name
+                    </td>
+                    <td>
+                        @{
+                            Gender gender = (Gender)person.Gender;
+                            string StringGender = gender.ToString();
+                        }
+                        @StringGender
+                    </td>
+                    <td>
+                        @person.BirthDate.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @{
+                            Ethnicity ethnicity = (Ethnicity)person.Gender;
+                            string StringEthnicity = ethnicity.ToString();
+                        }
+                        @StringEthnicity
+                    </td>
+                    <td>
+                        <a href="Person/Details/@person.Id">Detalhes</a>&nbsp;|&nbsp;
+                        <a href="Person/Edit/@person.Id">Editar</a>&nbsp;|&nbsp;
+                        <a href="Person/Delete/@person.Id">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-danger">Não há pessoas cadastradas</p>
+}
