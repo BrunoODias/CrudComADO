@@ -48,7 +48,7 @@ namespace CrudADO.Controllers
             catch (CustomMessageException error) {
                 return ToViewWithError("/Views/Person/List.cshtml", error.Message);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return ToViewWithError("/Views/Person/List.cshtml", "Erro ao tentar cadastrar a pessoa");
             }

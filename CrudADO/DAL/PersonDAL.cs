@@ -49,7 +49,7 @@ namespace CrudADO.DAL
         public void Insert(Person person) {
             person.Valid();
 
-            string InsertCommand = "INSERT INTO Persons (Name,Gender,BirthDate,Ethnicity)VALUES(@Name,@Gender,@BirthDate,@Eithnicity)";
+            string InsertCommand = "INSERT INTO Persons (Name,Gender,BirthDate,Ethnicity)VALUES(@Name,@Gender,@BirthDate,@Ethnicity)";
             ExecuteNonQuery(InsertCommand,new List<SqlParameter>() { 
                 new SqlParameter("Name",person.Name),
                 new SqlParameter("Gender",person.Gender),

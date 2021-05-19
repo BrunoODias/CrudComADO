@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<form method="post" class="row m-auto" style=" max-width: 30rem;">
+    <div class="col">
+        <div class="form-row mb-2">
+            <label for="Name">Nome:</label>
+            <input class="form-control form-control-sm" name="Name" required/>
+        </div>
+        <div class="form-row mb-2">
+            <label for="Gender">Gênero:</label>
+            <select class="form-control form-control-sm" form="Gender" required>
+                <option value="@Gender.Masculino">Masculino</option>
+                <option value="@Gender.Feminino">Feminino</option>
+                <option value="@Gender.Trans">Trans</option>
+                <option value="@Gender.Outro">Outros</option>
+            </select>
+        </div>
+        <div class="form-row mb-2">
+            <label for="Ethnicity">Etnia:</label>
+            <select class="form-control form-control-sm" name="Ethnicity" required>
+                <option value="@Ethnicity.Branco">Branco</option>
+                <option value="@Ethnicity.Negro">Negro</option>
+                <option value="@Ethnicity.Pardo">Pardo</option>
+                <option value="@Ethnicity.Indígena">Indígena</option>
+                <option value="@Ethnicity.Asiático">Asiático</option>
+                <option value="@Ethnicity.Outro">Outros</option>
+            </select>
+        </div>
+        <div class="form-row mb-2">
+            <label for="BirthDate">Data de nascimento:</label>
+            <input class="form-control form-control-sm" name="BirthDate" type="date" required/>
+        </div>
+        <div class="form-row mb-2 justify-content-end">
+            <a href="/Person/List" class="btn btn-danger">Voltar</a>
+            <button class="ml-2 btn btn-primary" type="submit">Cadastrar</button>
+        </div>
+    </div>
+</form>
