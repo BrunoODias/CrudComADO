@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CrudADO.Controllers
 {
-    public class PersonController : WebController
+    public class PersonController : Controller
     {
         private PersonDAL _personDAL;
         public PersonController(PersonDAL personDAL)
@@ -27,7 +27,10 @@ namespace CrudADO.Controllers
         {
             var model = _personDAL.GetDetails(Id);
             if (model == null)
-                return ToViewWithError("/Views/Person/List.cshtml","Não foi possível identificar a pessoa");
+            {
+                //ViewData["Error"] = "Não foi possível encontrar a pessoa!";
+                return RedirectToAction("List");
+            }
             return View(model);
         }
         #endregion Details
@@ -43,14 +46,18 @@ namespace CrudADO.Controllers
             try
             {
                 _personDAL.Insert(p);
-                return ToViewWithMessage("/Views/Person/List.cshtml", "Cadastrado com sucesso");
+                //ViewData["Message"] = "Pessoa cadastrada com sucesso!";
+                return RedirectToAction("List");
             }
-            catch (CustomMessageException error) {
-                return ToViewWithError("/Views/Person/List.cshtml", error.Message);
+            catch (CustomMessageException error)
+            {
+                //ViewData["Error"] = error.Message;
+                return RedirectToAction("List");
             }
             catch(Exception e)
             {
-                return ToViewWithError("/Views/Person/List.cshtml", "Erro ao tentar cadastrar a pessoa");
+                //ViewData["Error"] = "Erro ao tentar cadastrar a pessoa!";
+                return RedirectToAction("List");
             }
         }
         #endregion Add
@@ -60,7 +67,10 @@ namespace CrudADO.Controllers
         {
             var model = _personDAL.GetDetails(Id);
             if (model == null)
-                return ToViewWithError("/Views/Person/List.cshtml", "Não foi possível identificar a pessoa");
+            {
+                ViewData["Error"] = "Não foi possível identificar a pessoa";
+                return RedirectToAction("List");
+            }
             return View(model);
         }
         [HttpPost]
@@ -69,15 +79,18 @@ namespace CrudADO.Controllers
             try
             {
                 _personDAL.Update(person);
-                return ToViewWithMessage("/Views/Person/List.cshtml", "Editado com sucesso");
+                //ViewData["Message"] = "Editado com sucesso!";
+                return RedirectToAction("List");
             }
             catch (CustomMessageException error)
             {
-                return ToViewWithError("/Views/Person/List.cshtml", error.Message);
+                //ViewData["Error"] = error.Message;
+                return RedirectToAction("List");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return ToViewWithError("/Views/Person/List.cshtml", "Erro ao tentar salvar a edição");
+                //ViewData["Error"] = "Erro ao tentar salvar a edição";
+                return RedirectToAction("List");
             }
         }
         #endregion Edit
@@ -87,24 +100,30 @@ namespace CrudADO.Controllers
         {
             var model = _personDAL.GetDetails(Id);
             if (model == null)
-                return ToViewWithError("/Views/Person/List.cshtml", "Não foi possível identificar a pessoa");
+            {
+                ViewData["Error"] = "Não foi possível identificar a pessoa";
+                return RedirectToAction("List");
+            }
             return View(model);
         }
         [HttpPost]
-        public IActionResult Delete(Person person)
+        public IActionResult ConfirmDelete(int Id)
         {
             try
             {
-                _personDAL.Delete(person.Id);
-                return ToViewWithMessage("/Views/Person/List.cshtml", "Excluido com sucesso");
+                _personDAL.Delete(Id);
+                //ViewData["Error"] = "Excluido com sucesso";
+                return RedirectToAction("List");
             }
             catch (CustomMessageException error)
             {
-                return ToViewWithError("/Views/Person/List.cshtml", error.Message);
+                //ViewData["Error"] = error.Message;
+                return RedirectToAction("List");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return ToViewWithError("/Views/Person/List.cshtml", "Erro ao tentar excluir a pessoa");
+                //ViewData["Error"] = "Erro ao tentar excluir a pessoa";
+                return RedirectToAction("List");
             }
         }
         #endregion Delete

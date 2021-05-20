@@ -23,15 +23,14 @@ namespace CrudADO.DAL
                     Person person = new Person();
                     person.Id = Convert.ToInt32(currentPerson.Id);
                     person.Name = currentPerson.Name;
-                    person.Gender = (Gender) Convert.ToInt32(currentPerson.Gender);
-                    person.Ethnicity = (Ethnicity)Convert.ToInt32(currentPerson.Ethnicity);
+                    person.Gender = (Gender)currentPerson.Gender;
+                    person.Ethnicity = (Ethnicity)currentPerson.Ethnicity;
                     person.BirthDate = Convert.ToDateTime(currentPerson.BirthDate);
                     result.Add(person);
                 }
             }
             return result;
         }
-
         public Person GetDetails(int Id) {
             var person = ExecuteReader($"{SelectCommand} WHERE Id = @Id", new SqlParameter("Id",Id));
             if (person != null) {
@@ -45,7 +44,6 @@ namespace CrudADO.DAL
             }
             return null;
         }
-
         public void Insert(Person person) {
             person.Valid();
 
@@ -57,13 +55,12 @@ namespace CrudADO.DAL
                 new SqlParameter("Ethnicity",person.Ethnicity),
             });
         }
-
         public void Update(Person person) {
             if (person == null || person.Id == 0)
                 throw new CustomMessageException("Não foi possível identificar a pessoa");
             person.Valid();
 
-            string InsertCommand = "UPDATE Persons Name=@Name, Gender=@Gender,BirthDate=@BirthDate,Ethnicity=@Ethnicity WHERE Id = @Id";
+            string InsertCommand = "UPDATE Persons set Name=@Name, Gender=@Gender,BirthDate=@BirthDate,Ethnicity=@Ethnicity WHERE Id = @Id";
             ExecuteNonQuery(InsertCommand,new List<SqlParameter>() { 
                 new SqlParameter("Id",person.Id),
                 new SqlParameter("Name",person.Name),

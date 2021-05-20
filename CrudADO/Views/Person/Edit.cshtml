@@ -1,20 +1,22 @@
 ﻿@{
     Layout = "_Layout";
 }
+@model Person;
 
 <form method="post" class="row m-auto" style=" max-width: 30rem;">
+    <input type="hidden" class="d-none" value="@Model.Id">
     <div class="col">
         <div class="form-row mb-2">
             <label for="Name">Nome:</label>
-            <input class="form-control form-control-sm" name="Name" required />
+            <input class="form-control form-control-sm" name="Name" value="@Model.Name" required />
         </div>
         <div class="form-row mb-2">
             <label for="Gender">Gênero:</label>
-            <select class="form-control form-control-sm" name="Gender" required>
+            <select class="form-control form-control-sm" name="Gender" value="@((int)Model.Gender)" required>
                 <option value="@((int)Gender.Masculino)">Masculino</option>
                 <option value="@((int)Gender.Feminino)">Feminino</option>
                 <option value="@((int)Gender.Trans)">Trans</option>
-                <option value="@((int)Gender.Outro)">Outros</option>
+                <option value="@Gender.Outro">Outros</option>
             </select>
         </div>
         <div class="form-row mb-2">
@@ -30,11 +32,17 @@
         </div>
         <div class="form-row mb-2">
             <label for="BirthDate">Data de nascimento:</label>
-            <input class="form-control form-control-sm" name="BirthDate" type="date" required />
+            <input class="form-control form-control-sm" name="BirthDate" type="date" value="@Model.BirthDate.ToString("yyyy-MM-dd")" required />
         </div>
         <div class="form-row mb-2 justify-content-end">
             <a href="/Person/List" class="btn btn-danger">Voltar</a>
-            <button class="ml-2 btn btn-primary" type="submit">Cadastrar</button>
+            <button class="ml-2 btn btn-primary" type="submit">Editar</button>
         </div>
     </div>
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', function (e) {
+        document.getElementsByName('Gender')[0].options.selectedIndex = @((int)Model.Gender);
+        document.getElementsByName('Ethnicity')[0].options.selectedIndex = @((int)Model.Ethnicity);
+   });
+</script>

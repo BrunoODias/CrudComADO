@@ -1,0 +1,38 @@
+﻿@model Person;
+@{
+    Layout = "_Layout";
+
+
+    Gender gender = (Gender)Model.Gender;
+    string StringGender = gender.ToString();
+
+
+
+    Ethnicity ethnicity = (Ethnicity)Model.Ethnicity;
+    string StringEthnicity = ethnicity.ToString();
+}
+
+<div method="post" class="row m-auto" style=" max-width: 30rem;">
+    <div class="col">
+        <div class="form-row mb-2">
+            <strong><label>Nome:</label></strong>&nbsp;
+            <label>@Model.Name</label>
+        </div>
+        <div class="form-row mb-2">
+            <strong><label>Gênero:</label></strong>&nbsp;
+            <label>@StringGender</label>
+        </div>
+        <div class="form-row mb-2">
+            <strong><label>Etnia:</label></strong>&nbsp;
+            <label>@StringEthnicity</label>
+        </div>
+        <div class="form-row mb-2">
+            <strong><label>Data de nascimento:</label></strong>&nbsp;
+            <label>@Model.BirthDate.ToString("dd/MM/yyyy")</label>
+        </div>
+        <div class="form-row mb-2 justify-content-end">
+            <a href="/Person/List" class="btn btn-danger">Voltar</a>
+            <a class="ml-2 btn btn-primary" href="/Person/Edit/@Model.Id">Editar</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-action="ConfirmDelete" style="max-width:25rem">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="row">Tem certeza que deseja excluir o usuário: "@Model.Name"?</div>
+    <a class="btn btn-primary" href="/Person/List">Voltar</a>
+    <button type="submit" class="btn btn-danger">Excluir</button>
+</form>

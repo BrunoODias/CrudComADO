@@ -47,15 +47,15 @@
                     </td>
                     <td>
                         @{
-                            Ethnicity ethnicity = (Ethnicity)person.Gender;
+                            Ethnicity ethnicity = (Ethnicity)person.Ethnicity;
                             string StringEthnicity = ethnicity.ToString();
                         }
                         @StringEthnicity
                     </td>
                     <td>
-                        <a href="Person/Details/@person.Id">Detalhes</a>&nbsp;|&nbsp;
-                        <a href="Person/Edit/@person.Id">Editar</a>&nbsp;|&nbsp;
-                        <a href="Person/Delete/@person.Id">Excluir</a>
+                        <a href="/Person/Details/@person.Id">Detalhes</a>&nbsp;|&nbsp;
+                        <a href="/Person/Edit/@person.Id">Editar</a>&nbsp;|&nbsp;
+                        <a href="/Person/Delete/@person.Id">Excluir</a>
                     </td>
                 </tr>
             }
